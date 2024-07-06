@@ -11,13 +11,13 @@
     <li>使用 v-on 的方式觸發外層方法（口訣：前內、後外）</li>
   </ul>
   {{ num }}
-  <button-counter
+  <button-counter @emit-num="addNum"
 
   ></button-counter>
 
   <h3>傳遞資料狀態</h3>
   內部傳來的文字：{{ text }}<br>
-  <button-text
+  <button-text @emit-text="getData"
 
   ></button-text>
 
@@ -39,22 +39,25 @@
       };
     },
     methods: {
-      // addNum() {
-      //   console.log('addNum');
-      //   this.num++
-      // },
-      // getData(text) {
-      //   console.log('getData', text);
-      //   this.text = text;
-      // }
+      addNum() {
+        console.log('addNum');
+        this.num++
+      },
+      getData(text) {
+        console.log('getData', text);
+        this.text = text;
+      }
     }
   });
 
   app.component('button-counter', {
     methods: {
-
+        click(){
+            console.log('click');
+            this.$emit('emit-num');
+        }
     },
-    template: `<button type="button">add</button>`
+    template: `<button type="button" @click='click'>add</button>`
   });
 
   app.component('button-text', {
@@ -64,8 +67,12 @@
       }
     },
     methods: {
+        sendText(){
+            console.log('sendText');
+            this.$emit('emit-text',this.text);
+        }
     },
-    template: `<button type="button">emit data</button>`
+    template: `<button type="button" @click='sendText'>emit data</button>`
   });
 
   app.component('button-named', {
