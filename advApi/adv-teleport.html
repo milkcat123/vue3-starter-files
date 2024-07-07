@@ -4,17 +4,18 @@
 <!-- 🔥🔥練習開始🔥🔥 -->
 
 <div id="app">
-  <div id="target"></div>
+  <div id="target">目標區塊:</div>
 
   <h3>Teleport 自訂義元件位置</h3>
   結構：<code>&lt;teleport to="{ target }"&gt;</code>
   <card></card>
 
   <h3>使用限制（錯誤情境）</h3>
+  <p>運行時還未渲染到右邊的區塊，所以取不到目標的DOM值。</p>
   <card2></card2>
 
   <h3>實用技巧（取代標題、多個）</h3>
-<!--  <new-title></new-title>-->
+ <new-title></new-title>
 </div>
 
 <script>
@@ -38,18 +39,25 @@ const app = Vue.createApp({
         </div>
       </div>
 
-      <div v-if="toggle" class="alert alert-danger">被招喚的元素</div>
+      <teleport to="#target">
+        <div v-if="toggle" class="alert alert-danger">被招喚的元素</div>
+      </teleport>
+
+      
     `,
     props: ['item']
   });
 
   app.component('card2', {
     template: `
-      <div class="alert alert-danger">被招喚的元素</div>
+      <teleport to=".col-md-3">
+        <div v-if="toggle" class="alert alert-danger">被招喚的元素</div>
+      </teleport>
     `
   })
 
   app.component('new-title', {
+    //直接取代html的title標籤
     template: `<teleport to="title"> - 新增的標題片段</teleport>
     <teleport to="h1"> - 新增的文字片段</teleport>`
   })
