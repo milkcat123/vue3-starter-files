@@ -4,13 +4,18 @@
 <!-- 🔥🔥練習開始🔥🔥 -->
 
 <div id="app">
-  {{ person }}
-  num:{{ num }}
+  {{ person }} <br>
+  num:{{ num }} <br>
+  num2:{{ num2 }}<br>
   <button type="button" @click="add(10)">累加</button>
+  <br>
+  {{ newValue }}
+  <hr>
+  <p>composition api中，沒有限制生命週期的函式呼叫次數。</p>
 </div>
 <script type="module">
 // import { createApp } from '...';
-const { createApp, ref} = Vue;
+const { createApp, ref, onMounted, computed} = Vue;
 
 const app = createApp({
   setup() {
@@ -26,18 +31,37 @@ const app = createApp({
 
     // 生命週期
     // #1 https://v3.cn.vuejs.org/api/composition-api.html#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E9%92%A9%E5%AD%90
-
+    onMounted(()=>{
+        num.value = 100;
+    });
+    onMounted(()=>{
+        person.value = {
+            name:'忘機'
+        };
+    });
 
     // computed
     // #2 https://v3.cn.vuejs.org/api/computed-watch-api.html#computed
+    const num2 = ref(0);
+    const newValue = computed({
+        get(){
+            return num.value*2;
+        },
+        set(value) {
+            console.log(value);
+            num2.value = value;
+        }
+    })
+    newValue.value = 1000;
 
-
-    console.log(num)
+    console.log(num);
     return {
       // 外部需要用到的值，則需要匯出
       num,
       person,
       add,
+      newValue,
+      num2
     }
   },
 });

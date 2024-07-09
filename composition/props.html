@@ -4,7 +4,7 @@
 <!-- 🔥🔥練習開始🔥🔥 -->
 
 <div id="app">
-  <card></card>
+  <card :item="person" num="1"></card>
 </div>
 <script type="module">
 // import { createApp } from '...';
@@ -13,11 +13,22 @@ const { createApp, ref, toRef } = Vue;
 const card = {
   template: `<div class="card" style="width: 18rem;">
     <div class="card-body">
-      <h5 class="card-title"></h5>
+      <h5 class="card-title">{{ item.name }}</h5>
+      {{ num }}<br>
+       {{ myName }} <input type="text" v-model="myName">
     </div>
   </div>`,
-  setup() {
+  props:['item','num'],
+  setup(props) {
+    console.log(props);
+    const { item, num } = props;
+    const myName = ref(item.name);
 
+    return{
+        item,
+        num,
+        myName
+    }
   }
 }
 

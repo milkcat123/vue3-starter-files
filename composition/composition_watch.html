@@ -4,15 +4,15 @@
 <!-- 🔥🔥練習開始🔥🔥 -->
 
 <div id="app">
-  {{ watchText }}
+  {{ watchText }}<br>
   <input type="text" v-model="productName">
   <br>
-  {{ watchText2 }}
+  {{ watchText2 }}<br>
   <input type="text" v-model="product.other.name">
 
 </div>
 <script type="module">
-const { createApp, ref, reactive } = Vue;
+const { createApp, ref, reactive, watch } = Vue;
 
 const app = createApp({
 
@@ -22,6 +22,10 @@ const app = createApp({
     const productName = ref('蛋餅');
     const watchText = ref('');
 
+    //watch 是等觸發了變更後才會執行
+    watch(productName, (newValue, oldValue) => {
+        watchText.value = `輸入的文字僅有${newValue.length}個字，上次有 ${oldValue.length}個字`
+    });
 
 
     // 監聽物件
@@ -35,7 +39,23 @@ const app = createApp({
       }
     });
     const watchText2 = ref('');
+    //監聽深層物件屬性需要使用函式返回要監聽的值
+    watch(()=> product.value.other.name, (newValue, oldValue)=>{ //若是用reactive，則不需要加.value
+        watchText2.value = `輸入的文字僅有${newValue.length}個字，上次有 ${oldValue.length}個字`;
+    })
 
+    //深層監聽
+    const watchText3 = ref('');
+    //只需要使用newValue即可
+    watch(product, (newValue, oldValue)=>{
+        console.log(newValue, oldValue); //會是一樣的物件 === true
+    },{ deep: true })
+
+    //多值監聽
+    watch([productName, product], ([newProductName, newProduct],[oldProductName,oldProduct])=>{
+        console.log('純值', [newProductName, oldProductName]);
+        console.log('物件', [newProduct, oldProduct]);
+    },{ deep: true })
 
 
     return {

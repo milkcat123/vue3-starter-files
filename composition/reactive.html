@@ -5,14 +5,24 @@
 
 <div id="app">
   {{person}}
+  <br>
+  <input type="text" v-model="person.name">
 </div>
 <script type="module">
 // import { createApp } from '...';
-const { createApp } = Vue;
+const { createApp, reactive } = Vue;
 
 const app = createApp({
   setup() {
-    
+    // reactive 一定是物件，請使用const定義
+    const person = reactive({
+        name: '卡斯柏'
+    })
+    person.name = '杰倫';
+
+    return {
+        person
+    }
   },
 });
 

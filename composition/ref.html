@@ -5,15 +5,38 @@
 
 <div id="app">
   {{person}}
+  <br>
   <input type="text" v-model="num">
+  <br>
+  <input type="text" v-model="person.name">
 </div>
 <script type="module">
 // import { createApp } from '...';
-const { createApp } = Vue;
+const { createApp, ref } = Vue;
 
 const app = createApp({
   setup() {
-    
+    // ref可以用在純值
+    const num = ref(1);
+    console.log(num.value);
+    num.value = 5;
+
+    const person = ref({
+        name:'小明',
+        family:{
+            name:'小明家'
+        }
+    });
+    //注意value的位置
+    person.value.name = '杰倫';
+    person.value.family.name = '杰倫家';
+
+    person.value = '整個換掉也是可以的';
+
+    return {
+        num,
+        person
+    }
   },
 });
 

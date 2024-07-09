@@ -4,6 +4,10 @@
 <!-- 🔥🔥練習開始🔥🔥 -->
 
 <div id="app">
+    <p>實戰中，ref是比較好用且不會出錯的方法。</p>
+    <p>ref 可以用在純值上</p>
+    <div>{{ person }}</div>
+    <div>{{ person2 }}</div>
   
 </div>
 <script type="module">
@@ -18,9 +22,17 @@ const app = createApp({
       name: '卡斯伯',
     });
     
+    console.log(person,person2);
+
+    //可以透過value修改值
+    person.value.name = '杰倫';
+
+    //更改賦值會失去綁定
+    person2.name='小美';
 
     return {
-
+        person,
+        person2
     }
   },
 });

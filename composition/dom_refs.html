@@ -6,9 +6,11 @@
 <div id="app">
   <button type="button" ref="btn">這裡有一個按鈕</button>
   <card ref="card"></card>
+  <hr>
+  <p>用同樣的變數來獲取對應的ref dom，帶入null。</p>
 </div>
 <script type="module">
-const { createApp, ref } = Vue;
+const { createApp, ref, onMounted } = Vue;
 
 const card = {
   template: `<div class="card" style="width: 18rem;">
@@ -35,9 +37,19 @@ const app = createApp({
     const person = ref({
       name: '卡斯伯'
     });
+    const btn = ref(null);
+    const card = ref(null);
+    console.log(btn.value, card.value);
+
+    onMounted(()=>{
+        console.log('mounted', btn.value, card.value);
+
+    })
 
     return {
       person,
+      btn,
+      card
     }
   },
 });

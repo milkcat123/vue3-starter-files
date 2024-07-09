@@ -64,6 +64,7 @@ const app = Vue.createApp({
     components: {
       userComponent
     },
+    //內層接收變數的元件要使用inject
     inject:['user'],
     template: `
       <div class="card" style="width: 18rem;">

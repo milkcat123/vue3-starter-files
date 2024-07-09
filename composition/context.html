@@ -4,7 +4,8 @@
 <!-- 🔥🔥練習開始🔥🔥 -->
 
 <div id="app">
-  <card ></card>
+  <div>{{ person.name }}</div>
+  <card @push-data="getData"></card>
 </div>
 <script type="module">
 const { createApp, ref } = Vue;
@@ -16,9 +17,12 @@ const card = {
       @click="pushData">送出資料</button>
     </div>
   </div>`,
-  setup(props) {
+  setup(props, context) {
+    console.log(context);
+    const { emit } = context;
     function pushData() {
       console.log('pushData');
+      emit('push-data','裡面往外傳的資料');
     }
 
     return {
@@ -36,10 +40,14 @@ const app = createApp({
     const person = ref({
       name: '卡斯伯'
     });
+    function getData(data){
+        console.log('getData',data);
+        person.value.name = data;
+    }
 
     return {
       person,
-      
+      getData
     }
   },
 });

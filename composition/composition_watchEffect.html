@@ -4,14 +4,23 @@
 <!-- 🔥🔥練習開始🔥🔥 -->
 
 <div id="app">
-  {{ watchText }}
+  {{ watchText }}<br>
   <input type="text" v-model="productName">
   <br>
   <input type="text" v-model="product.name">
+  <hr>
+  <h4>與watch的區別</h4>
+  <ul>
+    <li>watch 在監聽特定變數上更為嚴謹。</li>
+    <li>watch 可以取得前一個修改值</li>
+    <li>watchEffect 有 computed + watch 的特性</li>
+    <li>watchEffect 使用上比較隨興</li>
+    <li>watchEffect 可以被停止</li>
+  </ul>
 
 </div>
 <script type="module">
-const { createApp, ref, reactive } = Vue;
+const { createApp, ref, reactive, watchEffect } = Vue;
 
 const app = createApp({
 
@@ -28,6 +37,21 @@ const app = createApp({
     });
 
     const watchText = ref('');
+
+    let num = 0;
+    
+    const stopWatchEffect = watchEffect(()=>{
+        // console.log('純值', productName.value);
+        // console.log('物件', product.value.name);
+
+        watchText.value = `羨羨買了${productName.value}`;
+        num++;
+        console.log(num);
+        if(num === 10){
+            stopWatchEffect();
+        }
+    })
+
 
 
     return {
