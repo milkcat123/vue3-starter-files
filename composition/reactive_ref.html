@@ -1,203 +1,245 @@
-<!DOCTYPE html><html><head><title>reactive 與 ref</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="images/favicon.ico" rel="shortcut icon"><meta charset="UTF-8"><script src="/javascripts/vendor.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.37/vue.global.js"></script></head><body class="bg-lighter">
-<div class="container main my-5"><div class="row"><main class="col post">
-<!-- 章節標題 --><div class="mb-4"><h1 class="mt-0 text-muted">reactive 與 ref</h1><small>檔名：<code>reactive_ref.html</code></small></div>
-<!-- 🔥🔥練習開始🔥🔥 -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>reactive 與 ref</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="images/favicon.ico" rel="shortcut icon" />
+    <meta charset="UTF-8" />
+    <script src="/javascripts/vendor.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.37/vue.global.js"></script>
+  </head>
+  <body class="bg-lighter">
+    <div class="container main my-5">
+      <div class="row">
+        <main class="col post">
+          <!-- 章節標題 -->
+          <div class="mb-4">
+            <h1 class="mt-0 text-muted">reactive 與 ref</h1>
+            <small>檔名：<code>reactive_ref.html</code></small>
+          </div>
+          <!-- 🔥🔥練習開始🔥🔥 -->
 
-<div id="app">
-    <p>實戰中，ref是比較好用且不會出錯的方法。</p>
-    <p>ref 可以用在純值上</p>
-    <div>{{ person }}</div>
-    <div>{{ person2 }}</div>
-  
-</div>
-<script type="module">
-const { createApp, reactive, ref } = Vue;
+          <div id="app">
+            <ul>
+              <li>實戰中，ref是比較好用且不會出錯的方法。</li>
+              <li>都使用const來賦值，避免重新賦值。</li>
+              <li>ref 可以用在純值、物件上，可以透過value修改值。</li>
+              <li>
+                reactive 只能用在物件上，且更改賦值會失去綁定。<br />
+                <button @click="changePerson()">更改賦值</button>
+              </li>
+            </ul>
+            <div>ref: {{ person }}</div>
+            <div>reactive: {{ person2 }}</div>
+            <div>reactive被重新賦值: {{ person3 }}</div>
+          </div>
+          <script type="module">
+            const { createApp, reactive, ref } = Vue;
 
-const app = createApp({
-  setup() {
-    const person = ref({
-      name: '卡斯伯'
-    });
-    const person2 = reactive({
-      name: '卡斯伯',
-    });
-    
-    console.log(person,person2);
+            const app = createApp({
+              setup() {
+                const person = ref({
+                  name: "卡斯伯1",
+                });
+                const person2 = reactive({
+                  name: "卡斯伯2",
+                });
+                let person3 = reactive({
+                  name: "卡斯伯3",
+                });
 
-    //可以透過value修改值
-    person.value.name = '杰倫';
+                console.log(person, person2, person3);
 
-    //更改賦值會失去綁定
-    person2.name='小美';
+                //ref可以透過value修改值
+                person.value.name = "杰倫";
 
-    return {
-        person,
-        person2
-    }
-  },
-});
+                person2.name = "小美";
 
-app.mount('#app')
-</script>
-<!-- 🙇🙇練習結束🙇🙇 -->
-</main>
-  
-    <aside
-      class="col-md-3"><div class="sticky-top" style="top: 76px">
-  <div class="list-group">
-  
-    <a href="/composition/proxy.html"
-      class="list-group-item list-group-item-action
-        
-        ">
-      Proxy
-    </a>
-  
-    <a href="/composition/setup.html"
-      class="list-group-item list-group-item-action
-        
-        ">
-      Setup 起手式
-    </a>
-  
-    <a href="/composition/reactive.html"
-      class="list-group-item list-group-item-action
-        
-        ">
-      Reactive
-    </a>
-  
-    <a href="/composition/ref.html"
-      class="list-group-item list-group-item-action
-        
-        ">
-      Ref
-    </a>
-  
-    <a href="/composition/reactive_ref.html"
-      class="list-group-item list-group-item-action
-        
-        active">
-      Reactive 與 Ref
-    </a>
-  
-    <a href="/composition/composition_methods.html"
-      class="list-group-item list-group-item-action
-        
-        ">
-      Composition 與 Methods
-    </a>
-  
-    <a href="/composition/composition_and_options.html"
-      class="list-group-item list-group-item-action
-        
-        ">
-      Options API 中...
-    </a>
-  
-    <a href="/composition/props.html"
-      class="list-group-item list-group-item-action
-        
-        ">
-      Props
-    </a>
-  
-    <a href="/composition/context.html"
-      class="list-group-item list-group-item-action
-        
-        ">
-      Context
-    </a>
-  
-    <a href="/composition/dom_refs.html"
-      class="list-group-item list-group-item-action
-        
-        ">
-      $Refs
-    </a>
-  
-    <a href="/composition/composition_provide.html"
-      class="list-group-item list-group-item-action
-        
-        ">
-      Provide 與 Inject
-    </a>
-  
-    <a href="/composition/composition_watch.html"
-      class="list-group-item list-group-item-action
-        
-        ">
-      Watch
-    </a>
-  
-    <a href="/composition/composition_watchEffect.html"
-      class="list-group-item list-group-item-action
-        
-        ">
-      Watch Effect
-    </a>
-  
-    <a href="/composition/composition_kata.html"
-      class="list-group-item list-group-item-action
-        
-        ">
-      KATA 練習
-    </a>
-  
-  </div>
-  <div class="mt-3 text-end p-2 bg-light rounded">
-    <small class="text-black-50 fw-light mb-0">文件版本：2022/11/1</small>
-  </div>
-</div>
+                //更改賦值會失去綁定
+                const changePerson = () => {
+                  person3 = { name: "被更動了" };
+                  console.log("changePerson3", person3);
+                };
 
-</aside>
-    
-  </div>
-</div>
+                return {
+                  person,
+                  person2,
+                  person3,
+                  changePerson,
+                };
+              },
+            });
 
-<nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-secondary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">Vue 3 練習手冊</a>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link " href="/es6/shorthand.html">JS 必備觀念</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="/intro/createApp.html">認識 Vue.js</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="/template/v-text.html">模板</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="/optionsApi/options-methods.html">方法</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="/components/component_register.html">元件</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="/advApi/adv-refs.html">進階</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="/router/vue-router.html">路由</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="/composition/proxy.html">Composition API</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="/pinia/layout.html">Pinia</a>
-        </li>
-      </ul>
+            app.mount("#app");
+          </script>
+          <!-- 🙇🙇練習結束🙇🙇 -->
+        </main>
+
+        <aside class="col-md-3">
+          <div class="sticky-top" style="top: 76px">
+            <div class="list-group">
+              <a
+                href="/composition/proxy.html"
+                class="list-group-item list-group-item-action"
+              >
+                Proxy
+              </a>
+
+              <a
+                href="/composition/setup.html"
+                class="list-group-item list-group-item-action"
+              >
+                Setup 起手式
+              </a>
+
+              <a
+                href="/composition/reactive.html"
+                class="list-group-item list-group-item-action"
+              >
+                Reactive
+              </a>
+
+              <a
+                href="/composition/ref.html"
+                class="list-group-item list-group-item-action"
+              >
+                Ref
+              </a>
+
+              <a
+                href="/composition/reactive_ref.html"
+                class="list-group-item list-group-item-action active"
+              >
+                Reactive 與 Ref
+              </a>
+
+              <a
+                href="/composition/composition_methods.html"
+                class="list-group-item list-group-item-action"
+              >
+                Composition 與 Methods
+              </a>
+
+              <a
+                href="/composition/composition_and_options.html"
+                class="list-group-item list-group-item-action"
+              >
+                Options API 中...
+              </a>
+
+              <a
+                href="/composition/props.html"
+                class="list-group-item list-group-item-action"
+              >
+                Props
+              </a>
+
+              <a
+                href="/composition/context.html"
+                class="list-group-item list-group-item-action"
+              >
+                Context
+              </a>
+
+              <a
+                href="/composition/dom_refs.html"
+                class="list-group-item list-group-item-action"
+              >
+                $Refs
+              </a>
+
+              <a
+                href="/composition/composition_provide.html"
+                class="list-group-item list-group-item-action"
+              >
+                Provide 與 Inject
+              </a>
+
+              <a
+                href="/composition/composition_watch.html"
+                class="list-group-item list-group-item-action"
+              >
+                Watch
+              </a>
+
+              <a
+                href="/composition/composition_watchEffect.html"
+                class="list-group-item list-group-item-action"
+              >
+                Watch Effect
+              </a>
+
+              <a
+                href="/composition/composition_kata.html"
+                class="list-group-item list-group-item-action"
+              >
+                KATA 練習
+              </a>
+            </div>
+            <div class="mt-3 text-end p-2 bg-light rounded">
+              <small class="text-black-50 fw-light mb-0"
+                >文件版本：2022/11/1</small
+              >
+            </div>
+          </div>
+        </aside>
+      </div>
     </div>
-  </div>
-</nav>
 
-<footer class="footer py-2 bg-light">
-  <div class="container text-center">
-    <small class="text-black-50 fw-light mb-0">六角學院 Vue 課程專屬文件</small>
-  </div>
-</footer>
-<link rel="stylesheet" href="/stylesheets/all.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-</body>
+    <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-secondary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">Vue 3 練習手冊</a>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="/es6/shorthand.html">JS 必備觀念</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/intro/createApp.html">認識 Vue.js</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/template/v-text.html">模板</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/optionsApi/options-methods.html"
+                >方法</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/components/component_register.html"
+                >元件</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/advApi/adv-refs.html">進階</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/router/vue-router.html">路由</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="/composition/proxy.html"
+                >Composition API</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/pinia/layout.html">Pinia</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <footer class="footer py-2 bg-light">
+      <div class="container text-center">
+        <small class="text-black-50 fw-light mb-0"
+          >六角學院 Vue 課程專屬文件</small
+        >
+      </div>
+    </footer>
+    <link rel="stylesheet" href="/stylesheets/all.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    />
+  </body>
 </html>
