@@ -4,6 +4,11 @@
 <!-- 🔥🔥練習開始🔥🔥 -->
 
 <div id="app">
+    <ul>
+        <li><code>provide</code>送出跨元件變數</li>
+        <li><code>inject</code>取得跨元件變數</li>
+        <li>跨元件變數使用ref包裝成響應式變數</li>
+    </ul>
   <card >
   </card>
 </div>
@@ -39,7 +44,7 @@ const app = createApp({
 
     //雙向綁定
     const person = ref({
-        name:'哪斯波'
+        name:'藍忘機'
     })
 
     provide('person',person);

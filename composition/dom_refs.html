@@ -4,10 +4,12 @@
 <!-- 🔥🔥練習開始🔥🔥 -->
 
 <div id="app">
+    <ul>
+        <li>用同樣的變數名稱賦值 <code>ref(null)</code> 來獲取對應的dom。</li>
+        <li>onMounted 生命週期才取的到DOM</li>
+    </ul>
   <button type="button" ref="btn">這裡有一個按鈕</button>
   <card ref="card"></card>
-  <hr>
-  <p>用同樣的變數來獲取對應的ref dom，帶入null。</p>
 </div>
 <script type="module">
 const { createApp, ref, onMounted } = Vue;
@@ -15,12 +17,12 @@ const { createApp, ref, onMounted } = Vue;
 const card = {
   template: `<div class="card" style="width: 18rem;">
     <div class="card-body">
-      <h5 class="card-title"></h5>
+      <h5 class="card-title">卡片元件</h5>
     </div>
   </div>`,
   setup(props, context) {
     function getConsole() {
-      console.log(context);
+      console.log('card:',context);
     }
     
     return {
@@ -42,8 +44,8 @@ const app = createApp({
     console.log(btn.value, card.value);
 
     onMounted(()=>{
-        console.log('mounted', btn.value, card.value);
-
+        console.log('mounted:按鈕元件', btn.value, '卡片元件',card.value);
+        card.value.getConsole();
     })
 
     return {
